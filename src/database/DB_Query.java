@@ -1,11 +1,8 @@
 
 package database;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,18 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import user.*;
-import database.InitializeDB;
 
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.Statement;
-
-/**
- * DDL functions performed in database
- *
- * @author changxin bai
- */
 public class DB_Query {
     /**
      * get the search result with username
