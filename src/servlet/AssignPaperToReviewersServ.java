@@ -12,20 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import database.DB_Query;
 import user.Review;
 
-/**
- * Servlet implementation class AssignPaperToReviewersServ
- */
 @WebServlet("/AssignPaperToReviewersServ")
 public class AssignPaperToReviewersServ extends HttpServlet {
     private static final long serialVersionUID = 1L;
     DB_Query dao = new DB_Query();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AssignPaperToReviewersServ() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -40,7 +33,7 @@ public class AssignPaperToReviewersServ extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String insertSuccess;
+        String insertSuccessCommand;
         boolean success = true;
         if(request.getParameter("entries")!= null){
             Review review = new Review();
@@ -51,24 +44,27 @@ public class AssignPaperToReviewersServ extends HttpServlet {
             review.setPaperid(Integer.parseInt(request.getParameter("paperid")));
             review.setComment("I like it");
             review.setRecommendation("y");
-            insertSuccess = dao.InsertReview(review);
-            appropriateResponse(request, response, insertSuccess, "author1");
+
+            insertSuccessCommand = dao.InsertReview(review);
+            success = appropriateResponse(request, response, insertSuccessCommand, "author1",review.getEmail());
 
             //Reviewer 2
-            if(success) {
+            if(success && request.getParameter("email2") != "") {
                     review.setEmail(request.getParameter("email2"));
-                    insertSuccess = dao.InsertReview(review);
-                    success = appropriateResponse(request, response, insertSuccess, "author2");
+                    insertSuccessCommand = dao.InsertReview(review);
+                    success = appropriateResponse(request, response, insertSuccessCommand, "author2",review.getEmail());
             }
 
             //Reviewer 3
-            if(success) {
+            if(success && request.getParameter("email3") != "") {
                     review.setEmail(request.getParameter("email3"));
-                    insertSuccess = dao.InsertReview(review);
-                    appropriateResponse(request, response, insertSuccess,"author3");
+                    insertSuccessCommand = dao.InsertReview(review);
+                    appropriateResponse(request, response, insertSuccessCommand,"author3",review.getEmail());
             }
-            RequestDispatcher test = request.getRequestDispatcher("ReviewServ");
-            test.forward(request, response);
+//            if(success) {
+//                RequestDispatcher test = request.getRequestDispatcher("ReviewServ");
+//                test.forward(request, response);
+//            }
         }
         else{
             RequestDispatcher test = request.getRequestDispatcher("ReviewServ");
@@ -76,7 +72,7 @@ public class AssignPaperToReviewersServ extends HttpServlet {
         }
     }
 
-    private boolean appropriateResponse(HttpServletRequest request, HttpServletResponse response, String insertSuccess, String author) throws ServletException, IOException {
+    private boolean appropriateResponse(HttpServletRequest request, HttpServletResponse response, String insertSuccess, String author, String email) throws ServletException, IOException {
         if(insertSuccess.equals("papers")){
             request.setAttribute(author, "Below PC member already has 5 papers assigned");
             request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
@@ -87,12 +83,14 @@ public class AssignPaperToReviewersServ extends HttpServlet {
             request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
             return false;
         }
-        else if(insertSuccess.equals("paper_overflow")){
-            request.setAttribute("overflow", "This paper has already been assigned three times");
+        else if(insertSuccess.contains("paper_overflow")){
+            request.setAttribute("overflow", "This paper could not be assigned to: "+email+" (has been assigned 3 times)");
             request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
             return false;
         }
         else {
+            request.setAttribute("updated", "Review Table has been updated");
+            request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
             return true;
         }
     }

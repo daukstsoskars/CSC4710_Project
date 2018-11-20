@@ -16,12 +16,8 @@ import database.DB_Query;
 public class LoginServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServ() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,6 +31,8 @@ public class LoginServ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//Create connection between database in order for Login to authenticate the user
 		MakeDbConnection dbConnection = new MakeDbConnection();
 		dbConnection.InitDB();
 		DB_Query user = new DB_Query();

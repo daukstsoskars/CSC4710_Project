@@ -2,15 +2,9 @@ package database;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 @WebServlet("/InitializeDB")
 public class InitializeDB extends HttpServlet {
@@ -22,11 +16,6 @@ public class InitializeDB extends HttpServlet {
             String sql = "use sampledb";
             PreparedStatement useDatabase = connect.prepareStatement(sql);
             useDatabase.executeUpdate();
-
-            //drop writePaper
-//            String drop5 = "DROP TABLE IF EXISTS writePaper;";
-//            PreparedStatement dropWritePaperTable = connect.prepareStatement(drop5);
-//            dropWritePaperTable.executeUpdate();
 
             //drop author
             String drop4 = "DROP TABLE IF EXISTS author;";
@@ -91,26 +80,6 @@ public class InitializeDB extends HttpServlet {
             insertIntoAuthor("AUTHOR_EMAIL3", "Author3","CSC");
             insertIntoAuthor("AUTHOR_EMAIL4", "Author4","CSC");
 
-
-
-
-            //create writePaper
-//            String sql5 = "CREATE TABLE writePaper"
-//                    + "(paperid INT,"
-//                    + "email VARCHAR(50),"
-//                    + "ordersignificance INT,"
-//                    + "PRIMARY KEY(paperid, email),"
-//                    + "FOREIGN KEY (paperid) REFERENCES paper(paperid)ON DELETE CASCADE ON UPDATE CASCADE,"
-//                    + "FOREIGN KEY (email) REFERENCES author(email)ON DELETE CASCADE ON UPDATE CASCADE);";
-//            PreparedStatement createTableWritePaper = connect.prepareStatement(sql5);
-//            createTableWritePaper.executeUpdate();
-//            //tuples
-//            insertIntoWritePaper(9, "mike7@gmail.com", 2);
-//            insertIntoWritePaper(6, "mike6@gmail.com", 1);
-//            insertIntoWritePaper(7, "mike8@gmail.com", 8);
-//            insertIntoWritePaper(8, "mike9@gmail.com", 7);
-//            insertIntoWritePaper(9, "mike10@gmail.com", 1);
-//            insertIntoWritePaper(1, "mike10@gmail.com", 1);
 
             //create pcmember
             String sql6 = "CREATE TABLE pcmember"
@@ -230,20 +199,6 @@ public class InitializeDB extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
-//    public void insertIntoWritePaper(int paperid, String email, int ordersignificance) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-//        try {
-//            String sql = "INSERT INTO writepaper(paperid, email, ordersignificance) VALUES(?,?,?)";
-//            PreparedStatement pstm = MakeDbConnection.getConnection().prepareStatement(sql);
-//            pstm.setInt(1, paperid);
-//            pstm.setString(2, email);
-//            pstm.setInt(3, ordersignificance);
-//            pstm.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
 }
 

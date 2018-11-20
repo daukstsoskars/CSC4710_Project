@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.*;
-import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import database.InitializeDB;
@@ -17,6 +16,7 @@ public class InitializeDBServ extends HttpServlet
     {
         InitializeDB initDB = new InitializeDB();
         try {
+            //create a table with tuples
             initDB.createTable(MakeDbConnection.getConnection());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

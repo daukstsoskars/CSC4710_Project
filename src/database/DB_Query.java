@@ -13,17 +13,8 @@ import java.util.List;
 import user.*;
 
 public class DB_Query {
-    /**
-     * get the search result with username
-     *
-     * @param username
-     * @return
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     */
 
-
+    //create connection with database
     Connection connect = MakeDbConnection.getConnection();
 
     public boolean findByUsername(String uname) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -41,15 +32,9 @@ public class DB_Query {
         return true;
     }
 
-    /**
-     * get data from author
-     */
     public List<Object> Authorfindall() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         List<Object> list = new ArrayList<>();
         try {
-            
-            
-
 
             String sql = "select * from author";
             PreparedStatement preparestatement = connect.prepareStatement(sql);
@@ -73,9 +58,6 @@ public class DB_Query {
     public List<Object> Reviewfindall() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         List<Object> list = new ArrayList<>();
         try {
-            
-            
-
 
             String sql = "select * from review";
             PreparedStatement preparestatement = connect.prepareStatement(sql);
@@ -97,13 +79,7 @@ public class DB_Query {
         }
         return list;
     }
-    /**
-     * Insert for Review
-     *
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     */
+
     public String InsertReview(Review review) {
         try {
             Connection connection = MakeDbConnection.getConnection();
@@ -145,7 +121,7 @@ public class DB_Query {
                 }
             }
             else{
-                return "paper_overflow";
+                return "paper_overflow_"+review.getEmail();
             }
 
         } catch (SQLException e) {
@@ -153,6 +129,7 @@ public class DB_Query {
         }
         return "good";
     }
+
     private boolean isThisPaperAlreadyAssignedToPcMemeber(Connection connection, Review review) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT paperid FROM review WHERE email=?");
         statement.setString(1, review.getEmail());
@@ -174,6 +151,7 @@ public class DB_Query {
         }
         return -1;
     }
+
     private int numberOfTimesPaperHasBeenAssigned(Connection connection, Review review) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT paperid FROM review WHERE paperid= ?");
         statement.setInt(1, review.getPaperid());

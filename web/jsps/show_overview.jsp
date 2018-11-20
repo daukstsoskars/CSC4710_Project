@@ -15,6 +15,7 @@
 <h3 align="center"> Review Table </h3>
 <table border="1" width="70%" align="center">
     <tr>
+        <%--TODO for Part2--%>
         <%--<th>Report ID</th>--%>
         <%--<th>Submitted date</th>--%>
         <%--<th>Comment</th>--%>
@@ -32,7 +33,7 @@
             <%--<td>${review.recommendation }</td>--%>
             <td>${review.paperid }</td>
             <td>${review.email }</td>
-            <%--TODO for Part2
+            <%--TODO for Part2--%>
             <%--<td><a href="UserControllerReview?action=edit&reportid=<c:out value="${review.reportid}"/>">Update</a></td>--%>
             <%--<td><a href="UserControllerReview?action=delete&reportid=<c:out value="${review.reportid}"/>">Delete</a></td>--%>
             <td>Update</td>

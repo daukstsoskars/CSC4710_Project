@@ -33,8 +33,15 @@ public class Paper {
 	}
 	
 	public String toString() {
-		return "Paper [ paperid=" + paperid + ", title="
-				+ title + ", abstract=" + abs +", pdf=" + pdf +"]";
+		return "Paper [ paperid="
+				+ paperid
+				+ ", title="
+				+ title
+				+ ", abstract="
+				+ abs
+				+", pdf="
+				+ pdf
+				+"]";
 	}
 
 }

@@ -76,7 +76,8 @@
         </form>
       <hr>
       <div id="assignReviewers">
-        <p>Assign at most three reviewers to a Paper: </p>
+        <p>Assign at most three reviewers to a Paper (You can assign 1,2 or 3 author emails at once (make sure to check the review table first))</p>
+        <p style="color: red; font-weight: 900"> ${updated}</p>
         <form action="<c:url value='/AssignPaperToReviewersServ'/>" method="post">
           <p style="color: red; font-weight: 900"> ${author1}</p>
           <label> Email 1: </label>

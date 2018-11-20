@@ -41,8 +41,15 @@ public class Author {
 	}
 	
 	public String toString() {
-		return "Author [ email=" + email + ", first name="
-				+ firstname + ", last name=" + lastname +", affiliation=" + affiliation +"]";
+		return "Author [ email="
+				+ email
+				+ ", first name="
+				+ firstname
+				+ ", last name="
+				+ lastname
+				+", affiliation="
+				+ affiliation
+				+"]";
 	}
 	
 }

@@ -1,6 +1,5 @@
 CREATE DATABASE sampledb;
 
-
 USE sampledb;
 
 CREATE TABLE tb_user
@@ -10,6 +9,7 @@ CREATE TABLE tb_user
   email VARCHAR(50) NOT NULL
 );
 
+#Make sure we have a starting user with login credentials
 INSERT INTO tb_user VALUES ('john', 'pass1234', 'john@john.com');
 
 CREATE TABLE `author` (
@@ -44,17 +44,6 @@ CREATE TABLE `review` (
   UNIQUE KEY `paperid` (`paperid`,`email`),
   KEY `email` (`email`),
   PRIMARY KEY (`reportid`),
-#   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
-#   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`email`) REFERENCES `pcmember` (`email`)
 );
 
-# CREATE TABLE `writepaper` (
-#   `paperid` int(11) NOT NULL,
-#   `email` varchar(50) NOT NULL,
-#   `ordersignificance` int(11) DEFAULT NULL,
-#   PRIMARY KEY (`paperid`,`email`),
-#   KEY `email` (`email`),
-#   CONSTRAINT `writepaper_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
-#   CONSTRAINT `writepaper_ibfk_2` FOREIGN KEY (`email`) REFERENCES `author` (`email`)
-# );
 
