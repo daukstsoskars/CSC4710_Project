@@ -20,7 +20,7 @@ CREATE TABLE `author` (
 );
 
 CREATE TABLE `paper` (
-  `paperid` int(11) NOT NULL,
+  `paperid` INT AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL,
   `Abstract` varchar(250) DEFAULT NULL,
   `pdf` varchar(100) DEFAULT NULL,
@@ -30,11 +30,12 @@ CREATE TABLE `paper` (
 CREATE TABLE `pcmember` (
   `email` varchar(50) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
+  `assigned` int,
   PRIMARY KEY (`email`)
 );
 
 CREATE TABLE `review` (
-  `reportid` int(11) DEFAULT NULL,
+  `reportid` INT AUTO_INCREMENT,
   `sdate` date DEFAULT NULL,
   `comment` varchar(250) DEFAULT NULL,
   `recommendation` char(1) DEFAULT NULL,
@@ -42,17 +43,18 @@ CREATE TABLE `review` (
   `email` varchar(100) DEFAULT NULL,
   UNIQUE KEY `paperid` (`paperid`,`email`),
   KEY `email` (`email`),
-  CONSTRAINT `review_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
-  CONSTRAINT `review_ibfk_2` FOREIGN KEY (`email`) REFERENCES `pcmember` (`email`)
+  PRIMARY KEY (`reportid`),
+#   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
+#   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`email`) REFERENCES `pcmember` (`email`)
 );
 
-CREATE TABLE `writepaper` (
-  `paperid` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `ordersignificance` int(11) DEFAULT NULL,
-  PRIMARY KEY (`paperid`,`email`),
-  KEY `email` (`email`),
-  CONSTRAINT `writepaper_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
-  CONSTRAINT `writepaper_ibfk_2` FOREIGN KEY (`email`) REFERENCES `author` (`email`)
-);
+# CREATE TABLE `writepaper` (
+#   `paperid` int(11) NOT NULL,
+#   `email` varchar(50) NOT NULL,
+#   `ordersignificance` int(11) DEFAULT NULL,
+#   PRIMARY KEY (`paperid`,`email`),
+#   KEY `email` (`email`),
+#   CONSTRAINT `writepaper_ibfk_1` FOREIGN KEY (`paperid`) REFERENCES `paper` (`paperid`),
+#   CONSTRAINT `writepaper_ibfk_2` FOREIGN KEY (`email`) REFERENCES `author` (`email`)
+# );
 

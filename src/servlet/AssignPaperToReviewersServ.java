@@ -40,42 +40,32 @@ public class AssignPaperToReviewersServ extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        if(request.getParameter("sbtrv")!= null){
+        String insertSuccess;
+        boolean success = true;
+        if(request.getParameter("entries")!= null){
             Review review = new Review();
 
-            System.out.println("here");
-            //first reviewer
+            //Reviewer 1
             review.setSdate(java.sql.Date.valueOf("2018-07-24"));
             review.setEmail(request.getParameter("email1"));
             review.setPaperid(Integer.parseInt(request.getParameter("paperid")));
             review.setComment("I like it");
             review.setRecommendation("y");
-            try {
-                dao.InsertReview(review);
-            } catch (InstantiationException | IllegalAccessException
-                    | ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            //second reviewer
-            review.setEmail(request.getParameter("email2"));
-            try {
-                dao.InsertReview(review);
-            } catch (InstantiationException | IllegalAccessException
-                    | ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            //third reviewer
-            review.setEmail(request.getParameter("email3"));
+            insertSuccess = dao.InsertReview(review);
+            appropriateResponse(request, response, insertSuccess, "author1");
 
-            try {
-                dao.InsertReview(review);
-            } catch (InstantiationException | IllegalAccessException
-                    | ClassNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            //Reviewer 2
+            if(success) {
+                    review.setEmail(request.getParameter("email2"));
+                    insertSuccess = dao.InsertReview(review);
+                    success = appropriateResponse(request, response, insertSuccess, "author2");
+            }
+
+            //Reviewer 3
+            if(success) {
+                    review.setEmail(request.getParameter("email3"));
+                    insertSuccess = dao.InsertReview(review);
+                    appropriateResponse(request, response, insertSuccess,"author3");
             }
             RequestDispatcher test = request.getRequestDispatcher("ReviewServ");
             test.forward(request, response);
@@ -83,6 +73,27 @@ public class AssignPaperToReviewersServ extends HttpServlet {
         else{
             RequestDispatcher test = request.getRequestDispatcher("ReviewServ");
             test.forward(request, response);
+        }
+    }
+
+    private boolean appropriateResponse(HttpServletRequest request, HttpServletResponse response, String insertSuccess, String author) throws ServletException, IOException {
+        if(insertSuccess.equals("papers")){
+            request.setAttribute(author, "Below PC member already has 5 papers assigned");
+            request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
+            return false;
+        }
+        else if(insertSuccess.equals("paperid")){
+            request.setAttribute(author, "Below PC member already has this paper assigned to him");
+            request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
+            return false;
+        }
+        else if(insertSuccess.equals("paper_overflow")){
+            request.setAttribute("overflow", "This paper has already been assigned three times");
+            request.getRequestDispatcher("/jsps/post_login.jsp").forward(request, response);
+            return false;
+        }
+        else {
+            return true;
         }
     }
 

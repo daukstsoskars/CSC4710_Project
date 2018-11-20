@@ -25,7 +25,7 @@
             document.getElementById("assignReviewers").style.display = "block";
         }
         else{
-            document.getElementById("showdb").disabled = "true";
+            document.getElementById("showReview").disabled = "true";
         }
     }
   </script>
@@ -71,27 +71,33 @@
     <div style=" width: 100%; text-align: center; margin-top: 50px">
       <form action="<c:url value='/InitializeDBServ'/>" method="post">
           <button id="initializeButton" onclick="hide()" type="submit" value="InitButton">Initialize Database</button>
-          <button id="showdb" type="submit" value="InitButton" formaction="/ReviewServ">Review Table</button>
+          <button id="showReview" type="submit" value="InitButton" formaction="/ReviewServ">Review Table</button>
+          <button id="showPapers" type="submit" formaction="/PaperServ">Paper Table</button>
         </form>
       <hr>
       <div id="assignReviewers">
         <p>Assign at most three reviewers to a Paper: </p>
         <form action="<c:url value='/AssignPaperToReviewersServ'/>" method="post">
+          <p style="color: red; font-weight: 900"> ${author1}</p>
           <label> Email 1: </label>
           <input type="text" name="email1" value = ""/>
           <br>
 
+          <p style="color: red; font-weight: 900"> ${author2}</p>
           <label> Email 2: </label>
           <input type="text" name="email2" value = ""/>
 
           <br>
+          <p style="color: red; font-weight: 900"> ${author3}</p>
           <label> Email 3: </label>
           <input type="text" name="email3" value = ""/>
+
           <br>
+          <p style="color: red; font-weight: 900"> ${overflow}</p>
           <label>Paper Id: </label>
           <input type = "text" name = "paperid" value = ""/>
           <br>
-          <input type="submit" value="Submit" name ="sbtrv" />
+          <input type="submit" value="Submit" name ="entries" />
         </form>
       </div>
     </div>

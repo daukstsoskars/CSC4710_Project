@@ -5,16 +5,20 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    <style>
+        td {
+           text-align: center;
+        }
+    </style>
 </head>
 <body>
 <h3 align="center"> Review Table </h3>
 <table border="1" width="70%" align="center">
     <tr>
-        <th>Report ID</th>
-        <th>Submitted date</th>
-        <th>Comment</th>
-        <th>Recommendation</th>
+        <%--<th>Report ID</th>--%>
+        <%--<th>Submitted date</th>--%>
+        <%--<th>Comment</th>--%>
+        <%--<th>Recommendation</th>--%>
         <th>Paper ID</th>
         <th>Email</th>
         <th colspan=2>Options</th>
@@ -22,10 +26,10 @@
     </tr>
     <c:forEach items="${ReviewList}" var="review">
         <tr>
-            <td>${review.reportid }</td>
-            <td>${review.sdate }</td>
-            <td>${review.comment }</td>
-            <td>${review.recommendation }</td>
+            <%--<td>${review.reportid }</td>--%>
+            <%--<td>${review.sdate }</td>--%>
+            <%--<td>${review.comment }</td>--%>
+            <%--<td>${review.recommendation }</td>--%>
             <td>${review.paperid }</td>
             <td>${review.email }</td>
             <%--TODO for Part2

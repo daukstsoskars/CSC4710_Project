@@ -24,9 +24,9 @@ public class InitializeDB extends HttpServlet {
             useDatabase.executeUpdate();
 
             //drop writePaper
-            String drop5 = "DROP TABLE IF EXISTS writePaper;";
-            PreparedStatement dropWritePaperTable = connect.prepareStatement(drop5);
-            dropWritePaperTable.executeUpdate();
+//            String drop5 = "DROP TABLE IF EXISTS writePaper;";
+//            PreparedStatement dropWritePaperTable = connect.prepareStatement(drop5);
+//            dropWritePaperTable.executeUpdate();
 
             //drop author
             String drop4 = "DROP TABLE IF EXISTS author;";
@@ -81,61 +81,54 @@ public class InitializeDB extends HttpServlet {
             String sql4 = "CREATE TABLE author"
                     + "(email VARCHAR(100),"
                     + "firstname VARCHAR(50),"
-                    + "lastname VARCHAR(50),"
                     + "affiliation VARCHAR(100),"
                     + "PRIMARY KEY(email));";
             PreparedStatement createTableAuthor = connect.prepareStatement(sql4);
             createTableAuthor.executeUpdate();
             //tuples
-            insertIntoAuthor("mike4@gmail.com", "mike4","diaz","eng");
-            insertIntoAuthor("mike5@gmail.com", "mike5","fields","csc");
-            insertIntoAuthor("mike6@gmail.com", "mike6","snay","eng");
-            insertIntoAuthor("mike7@gmail.com", "mike7","zhang","eng");
-            insertIntoAuthor("mike8@gmail.com", "mike8","bazi","csc");
-            insertIntoAuthor("mike9@gmail.com", "mike9","nuzha","eng");
-            insertIntoAuthor("mike10@gmail.com", "mike10","lu","csc");
+            insertIntoAuthor("AUTHOR_EMAIL1", "Author1","ENG");
+            insertIntoAuthor("AUTHOR_EMAIL2", "Author2","ENG");
+            insertIntoAuthor("AUTHOR_EMAIL3", "Author3","CSC");
+            insertIntoAuthor("AUTHOR_EMAIL4", "Author4","CSC");
 
 
 
 
             //create writePaper
-            String sql5 = "CREATE TABLE writePaper"
-                    + "(paperid INT,"
-                    + "email VARCHAR(50),"
-                    + "ordersignificance INT,"
-                    + "PRIMARY KEY(paperid, email),"
-                    + "FOREIGN KEY (paperid) REFERENCES paper(paperid)ON DELETE CASCADE ON UPDATE CASCADE,"
-                    + "FOREIGN KEY (email) REFERENCES author(email)ON DELETE CASCADE ON UPDATE CASCADE);";
-            PreparedStatement createTableWritePaper = connect.prepareStatement(sql5);
-            createTableWritePaper.executeUpdate();
-            //tuples
-            insertIntoWritePaper(9, "mike7@gmail.com", 2);
-            insertIntoWritePaper(6, "mike6@gmail.com", 1);
-            insertIntoWritePaper(7, "mike8@gmail.com", 8);
-            insertIntoWritePaper(8, "mike9@gmail.com", 7);
-            insertIntoWritePaper(9, "mike10@gmail.com", 1);
-            insertIntoWritePaper(1, "mike10@gmail.com", 1);
+//            String sql5 = "CREATE TABLE writePaper"
+//                    + "(paperid INT,"
+//                    + "email VARCHAR(50),"
+//                    + "ordersignificance INT,"
+//                    + "PRIMARY KEY(paperid, email),"
+//                    + "FOREIGN KEY (paperid) REFERENCES paper(paperid)ON DELETE CASCADE ON UPDATE CASCADE,"
+//                    + "FOREIGN KEY (email) REFERENCES author(email)ON DELETE CASCADE ON UPDATE CASCADE);";
+//            PreparedStatement createTableWritePaper = connect.prepareStatement(sql5);
+//            createTableWritePaper.executeUpdate();
+//            //tuples
+//            insertIntoWritePaper(9, "mike7@gmail.com", 2);
+//            insertIntoWritePaper(6, "mike6@gmail.com", 1);
+//            insertIntoWritePaper(7, "mike8@gmail.com", 8);
+//            insertIntoWritePaper(8, "mike9@gmail.com", 7);
+//            insertIntoWritePaper(9, "mike10@gmail.com", 1);
+//            insertIntoWritePaper(1, "mike10@gmail.com", 1);
 
             //create pcmember
             String sql6 = "CREATE TABLE pcmember"
-                    + "(memberid INT AUTO_INCREMENT,"
-                    + "email VARCHAR(50),"
+                    + "(email VARCHAR(50),"
                     + "name VARCHAR(20),"
-                    + "PRIMARY KEY (memberid),"
+                    + "assigned INT,"
                     + "UNIQUE(email));";
             PreparedStatement createTablePcmember = connect.prepareStatement(sql6);
             createTablePcmember.executeUpdate();
             //tuples
-            insertIntoPcMember("dave1@gmail.com","dave1");
-            insertIntoPcMember("dave2@gmail.com","dave2");
-            insertIntoPcMember("dave3@gmail.com","dave3");
-            insertIntoPcMember("dave4@gmail.com","dave4");
-            insertIntoPcMember("dave5@gmail.com","dave5");
-            insertIntoPcMember("dave6@gmail.com","dave6");
-            insertIntoPcMember("dave7@gmail.com","dave7");
-            insertIntoPcMember("dave8@gmail.com","dave8");
-            insertIntoPcMember("dave9@gmail.com","dave9");
-            insertIntoPcMember("dave10@gmail.com","dave10");
+            insertIntoPcMember("PC_EMAIL1","PC1",5);
+            insertIntoPcMember("PC_EMAIL2","PC2",0);
+            insertIntoPcMember("PC_EMAIL3","PC3",0);
+            insertIntoPcMember("PC_EMAIL4","PC4",0);
+            insertIntoPcMember("PC_EMAIL5","PC5",0);
+            insertIntoPcMember("PC_EMAIL6","PC6",0);
+            insertIntoPcMember("PC_EMAIL7","PC7",0);
+            insertIntoPcMember("PC_EMAIL8","PC8",0);
 
 
             //create review
@@ -147,27 +140,26 @@ public class InitializeDB extends HttpServlet {
                     + "paperid INT,"
                     + "email VARCHAR(100),"
                     + "PRIMARY KEY(reportid),"
-                    + "UNIQUE(paperid, email),"
-                    + "FOREIGN KEY (paperid) REFERENCES paper(paperid)ON DELETE CASCADE ON UPDATE CASCADE,"
-                    + "FOREIGN KEY (email) REFERENCES pcmember(email)ON DELETE CASCADE ON UPDATE CASCADE);";
+                    + "UNIQUE(paperid, email))";
+//                    + "FOREIGN KEY (paperid) REFERENCES paper(paperid)ON DELETE CASCADE ON UPDATE CASCADE,"
+//                    + "FOREIGN KEY (email) REFERENCES pcmember(email)ON DELETE CASCADE ON UPDATE CASCADE);";
             PreparedStatement createTableReview = connect.prepareStatement(sql7);
             createTableReview.executeUpdate();
             //tuples
-            insertIntoReview("2018-06-01", "like it", "y", 1, "dave1@gmail.com");
-            insertIntoReview("2018-06-02", "like it", "y", 2, "dave2@gmail.com");
-            insertIntoReview("2018-06-02", "like it", "y", 2, "dave4@gmail.com");
-            insertIntoReview("2018-06-03", "like it", "n", 2, "dave1@gmail.com");
-            insertIntoReview("2018-06-03", "like it", "n", 2, "dave3@gmail.com");
-            insertIntoReview("2018-06-03", "like it", "n", 3, "dave3@gmail.com");
-            insertIntoReview("2018-06-04", "like it", "y", 4, "dave4@gmail.com");
-            insertIntoReview("2018-06-05", "like it", "n", 5, "dave5@gmail.com");
-            insertIntoReview("2018-06-05", "like it", "n", 5, "dave1@gmail.com");
-            insertIntoReview("2018-06-06", "like it", "n", 5, "dave2@gmail.com");
-            insertIntoReview("2018-06-06", "like it", "n", 6, "dave6@gmail.com");
-            insertIntoReview("2018-06-07", "like it", "n", 7, "dave7@gmail.com");
-            insertIntoReview("2018-06-08", "like it", "y", 8, "dave8@gmail.com");
-            insertIntoReview("2018-06-08", "like it", "y", 8, "dave3@gmail.com");
-            insertIntoReview("2018-06-09", "like it", "y", 9, "dave9@gmail.com");
+            insertIntoReview("2018-06-01", "like it", "y", 1, "PC_EMAIL1");
+            insertIntoReview("2018-06-02", "like it", "y", 2, "PC_EMAIL1");
+            insertIntoReview("2018-06-02", "like it", "y", 3, "PC_EMAIL1");
+            insertIntoReview("2018-06-03", "like it", "n", 4, "PC_EMAIL1");
+            insertIntoReview("2018-06-03", "like it", "n", 5, "PC_EMAIL1");
+            insertIntoReview("2018-06-04", "like it", "y", 4, "PC_EMAIL4");
+            insertIntoReview("2018-06-05", "like it", "n", 5, "PC_EMAIL5");
+            insertIntoReview("2018-06-05", "like it", "n", 5, "PC_EMAIL6");
+            insertIntoReview("2018-06-06", "like it", "n", 2, "PC_EMAIL2");
+            insertIntoReview("2018-06-06", "like it", "n", 6, "PC_EMAIL6");
+            insertIntoReview("2018-06-07", "like it", "n", 7, "PC_EMAIL7");
+            insertIntoReview("2018-06-08", "like it", "y", 8, "PC_EMAIL8");
+            insertIntoReview("2018-06-08", "like it", "y", 8, "PC_EMAIL3");
+            insertIntoReview("2018-06-09", "like it", "y", 9, "PC_EMAIL4");
 
             //create view accepted
             String view = "CREATE VIEW accepted AS "
@@ -196,26 +188,26 @@ public class InitializeDB extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    public void insertIntoAuthor(String email, String firstname,String lastname, String affiliation ) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+    public void insertIntoAuthor(String email, String firstname, String affiliation ) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
         try {
-            String sql = "INSERT INTO author(email, firstname, lastname, affiliation) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO author(email, firstname, affiliation) VALUES(?,?,?)";
             PreparedStatement pstm = MakeDbConnection.getConnection().prepareStatement(sql);
             pstm.setString(1,email);
             pstm.setString(2,firstname);
-            pstm.setString(3,lastname);
-            pstm.setString(4,affiliation);
+            pstm.setString(3,affiliation);
             pstm.executeUpdate();
 
         }catch(SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public void insertIntoPcMember(String email, String name) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+    public void insertIntoPcMember(String email, String name, int numberOfPapersAssigned) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
         try {
-            String sql = "INSERT INTO pcmember(email, name) VALUES(?,?)";
+            String sql = "INSERT INTO pcmember(email, name, assigned) VALUES(?,?,?)";
             PreparedStatement pstm = MakeDbConnection.getConnection().prepareStatement(sql);
             pstm.setString(1,email);
             pstm.setString(2,name);
+            pstm.setInt(3,numberOfPapersAssigned);
             pstm.executeUpdate();
 
         }catch(SQLException e) {
@@ -239,19 +231,19 @@ public class InitializeDB extends HttpServlet {
         }
     }
 
-    public void insertIntoWritePaper(int paperid, String email, int ordersignificance) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        try {
-            String sql = "INSERT INTO writepaper(paperid, email, ordersignificance) VALUES(?,?,?)";
-            PreparedStatement pstm = MakeDbConnection.getConnection().prepareStatement(sql);
-            pstm.setInt(1, paperid);
-            pstm.setString(2, email);
-            pstm.setInt(3, ordersignificance);
-            pstm.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void insertIntoWritePaper(int paperid, String email, int ordersignificance) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+//        try {
+//            String sql = "INSERT INTO writepaper(paperid, email, ordersignificance) VALUES(?,?,?)";
+//            PreparedStatement pstm = MakeDbConnection.getConnection().prepareStatement(sql);
+//            pstm.setInt(1, paperid);
+//            pstm.setString(2, email);
+//            pstm.setInt(3, ordersignificance);
+//            pstm.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }
 
